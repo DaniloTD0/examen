@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block title %}Aprendices{% endblock %}
+
+{% block content %}
+<div id="nav">
+    <ul>
+        <li><a href="{{ url_for('login') }}">Salir</a></li>
+    </ul>
+</div>
+
+<div id="content" class="container">
+    <h2>Aprendices</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th id="ids">#</th>
+                <th id="nombre_aprendiz">Nombre aprendiz</th>
+                <th id="edad">Edad</th>
+                <th id="telefono">Telefono</th>
+                <th id="gmail">Gmail</th>
+                <th id="cedula">Cedula</th>
+                <th class="acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for d in data %}
+        <tr>
+            <td>{{ d.id_aprendiz }}</td>
+            <td>{{ d.nombre_aprendiz }}</td>
+            <td>{{ d.edad }}</td>
+            <td>{{ d.telefono }}</td>
+            <td>{{ d.gmail }}</td>
+            <td>{{ d.cedula }}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{ d.id_aprendiz }}">Edit</button>
+                <a href="{{ url_for('deleteApr', id_aprendiz=d.id_aprendiz) }}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal{{ d.id_aprendiz }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Aprendiz</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ url_for('editApr', id_aprendiz=d.id_aprendiz) }}" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nombre_aprendiz" class="form-label">Nombre aprendiz</label>
+                                <input type="text" class="form-control" id="nombre_aprendiz" name="nombre_aprendiz" value="{{ d.nombre_aprendiz }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="edad" class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="edad" name="edad" value="{{ d.edad }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Telefono</label>
+                                <input type="text" class="form-control" id="telefono" name="telefono" value="{{ d.telefono }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="gmail" class="form-label">Gmail</label>
+                                <input type="email" class="form-control" id="gmail" name="gmail" value="{{ d.gmail }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cedula" class="form-label">Cedula</label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" value="{{ d.cedula }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add Aprendiz Form -->
+    <form action="{{ url_for('addApr') }}" method="POST" class="mt-4">
+        <div class="mb-3">
+            <label for="nombre_aprendiz" class="form-label">Nombre aprendiz</label>
+            <input type="text" class="form-control" id="nombre_aprendiz" name="nombre_aprendiz">
+        </div>
+        <div class="mb-3">
+            <label for="edad" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="edad" name="edad">
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="telefono" name="telefono">
+        </div>
+        <div class="mb-3">
+            <label for="gmail" class="form-label">Gmail</label>
+            <input type="email" class="form-control" id="gmail" name="gmail">
+        </div>
+        <div class="mb-3">
+            <label for="cedula" class="form-label">Cedula</label>
+            <input type="text" class="form-control" id="cedula" name="cedula">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Aprendiz</button>
+    </form>
+</div>
+{% endblock %}

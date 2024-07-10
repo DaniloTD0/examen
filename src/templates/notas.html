@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Aprendices{% endblock %}
+
+{% block content %}
+
+    <div id="nav">
+        <ul>
+            <li ><a  href="{{ url_for('login') }}">Salir</a></li>
+            
+
+        </ul>
+    </div>
+    
+    <div id="content" class="container">
+        <h2>Notas de aprendices</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th id="ids">#</th>
+                    <th id="nombre_aprendiz">Nombre aprendiz</th>
+                    <th id="Materia">Materia</th>
+                    <th id="Nota">nota</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            <!-- Aquí irían las filas con los datos de los artículos -->
+            {% for d in data %}
+            <tr>
+                <td>{{ d.id_nota }}</td>
+                <td>{{ d.nombre_aprendiz }}</td>
+                <td>{{ d.nombre_materia }}</td>
+                <td>{{ d.nota }}</td>
+                
+            </tr>
+
+
+{% endblock %}
